@@ -1,0 +1,108 @@
+#include <iostream>
+#include <windows.h>
+#include <sstream>
+#include <stdlib.h>
+using namespace std;
+
+void timer(int m, int s)   //Timer
+{
+    for(;;)
+    {
+        if (m == 0 && s == 0)
+        {
+            break;
+        }
+        if (s == 0 && m ==0)
+        {
+            m = 60;
+        }
+        if (s == 0)
+        {
+            s = 60;
+            m--;
+        }
+        system("cls");
+        cout<<m<<":"<<s--;
+        Sleep(1000);
+    }
+}
+
+
+
+int main(){
+    char entrada{},salida{};
+    int numero_orden{1},menu={},m,s;
+    string plato1 = "Plato del dia", plato2 = "Recomendacion del Chef", plato3= "Pizza Napolitana",plato4 = "Salir del Restaurante";
+    const int time_plat1=3, time_plat2=5, time_plat3=2;
+    
+  do
+  {
+        cout<<"Bienvenido a la Cafeteria XYZ"<<endl;
+        cout<<"\n--------------------------"<<endl;
+
+        do
+        {
+            cout<<"Para ingresar al local debe oprimir la letra x: ";
+            cin>>entrada;
+            if(entrada !='x' && entrada !='X')
+             cout<<"Opsss... Tecla equivocada vuelva a intentarlo"<<endl<<endl;
+        }while(entrada !='x' && entrada !='X');
+            cout<<"\nHa ingresado al local su numero de orden es: "<<numero_orden<<endl;
+            cout<<"-------------------------------------"<<endl;
+            cout<<"MENU:"<<endl;
+            cout<<"1. "<<plato1<<endl;
+            cout<<"2. "<<plato2<<endl;
+            cout<<"3. "<<plato3<<endl;
+            cout<<"4. "<<plato4<<endl;
+            cout<<"-------------------------------------"<<endl;
+            cout<<"\nFavor de ingresar el numero del plato de comida que desea: ";
+            cin>>menu;
+            if(menu==1){
+                cout<<"Ha seleccionado: "<<plato1<<" su tiempo de espera es de "<<time_plat1<<" min"<<endl;
+                cout<<"Minutes: "; m=0;
+                cout<<"Seconds: "; s=10;
+                timer(m,s);
+                if(m==0 || s==0)
+                {
+                    cout<<"\nORDEN LISTA"<<endl;
+                    cout<<"Presione la letra Z para el siguiente cliente o Y para salir: ";
+                    cin>>salida;
+            
+            }
+            }
+            if(menu==2){
+                cout<<"Ha seleccionado: "<<plato2<<" su tiempo de espera es de "<<time_plat2<<" min";
+                cout<<"Minutes: "; m=5;
+                cout<<"Seconds: "; s=0;
+                timer(m,s);
+                if(m==0 || s==0)
+                {
+                    cout<<"\nORDEN LISTA"<<endl;
+                    cout<<"Presione la letra Z para el siguiente cliente o Y para salir: ";
+                    cin>>salida;
+            
+            }
+            }
+            if(menu==3){
+                cout<<"Ha seleccionado: "<<plato3<<" su tiempo de espera es de "<<time_plat3<<" min";
+                cout<<"Minutes: "; m=2;
+                cout<<"Seconds: "; s=0;
+                timer(m,s);
+                if(m==0 || s==0)
+                {
+                    cout<<"\nORDEN LISTA"<<endl;
+                    cout<<"Presione la letra Z para el siguiente cliente o Y para salir: ";
+                    cin>>salida;
+            
+            }
+            }
+            if(menu==4){
+                cout<<"\nHa salido del restaurante";
+                cout<<"\nPresione la letra Z para el siguiente cliente o Y para terminar: ";
+                    cin>>salida;
+            }
+            numero_orden=numero_orden+1;
+  }while( salida !='y' && salida != 'Y');
+    cout<<"\nVUELVA PRONTO";
+    return 0;
+}    
