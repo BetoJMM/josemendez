@@ -1,1 +1,65 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <vector>
+#include <cstring>
 
+using namespace std;
+/*Parcial #1 */
+
+int main(){
+    
+    
+    char entrada{};
+    vector <string> usuarios(4);
+    char nombre[20]{},apellido[20]{},identificacion[20]{},correo[20]{},carrera[20]{},nombre_completo[50]{};
+    
+    cout<<"Bienvenidos al portal de la Universidad XYZ"<<endl;
+    cout<<"-------------------------------------------"<<endl;
+    
+    cout<<"Si tiene su perfil creado presione Y o N para crear su perfil: ";
+    cin>>entrada;
+    switch (entrada) {
+        case 'y':
+        case 'Y':
+            cout<<"\nInicio de sesion: "<<endl;
+          
+            cout<<"Contrasena: "<<endl;
+           
+            break;
+        case 'n':
+        case 'N':
+            cout<<"\nNombre: ";
+            cin>>nombre;
+            
+            cout<<"\nApellido: ";
+            cin>>apellido;
+            
+            strcpy(nombre_completo,nombre);
+            strcat(nombre_completo," ");
+            strcat(nombre_completo,apellido);
+            usuarios.push_back(nombre_completo);
+            
+            cout<<"\nIdentificacion: ";
+            cin>>identificacion;
+            usuarios.push_back(identificacion);
+            
+            cout<<"\nCorreo: ";
+            cin>>correo;
+            usuarios.push_back(correo);
+            
+            cout<<"\nCarrera que estudia: ";
+            cin>>carrera;
+            usuarios.push_back(carrera);
+            
+            break;
+    
+  
+    
+    
+    
+    return 0;
+}
+
+}
