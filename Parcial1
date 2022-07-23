@@ -8,28 +8,62 @@
 using namespace std;
 /*Parcial #1 */
 
+    static const char pool [] = 
+    "ABCDFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz"
+    "0123456789";
+    
+    int poolsize = sizeof(pool)-1;
+    
+    char getRandomChar()
+    
+    {
+        return pool[rand()%poolsize];
+    }
 int main(){
+    char salida{},volver{},entrada{};
+    vector <string> usuarios(0);
+    char nombre[20]{},apellido[20]{},nombre_usuario[20]{},identificacion[20]{},correo[20]{},carrera[20]{},nombre_completo[50]{};
+    string pass,inicio,inicio_contra;
+    int const passLenght=6;
+    int num;
     
-    
-    char entrada{};
-    vector <string> usuarios(4);
-    char nombre[20]{},apellido[20]{},identificacion[20]{},correo[20]{},carrera[20]{},nombre_completo[50]{};
-    
+    do{
+    system("cls");    
     cout<<"Bienvenidos al portal de la Universidad XYZ"<<endl;
     cout<<"-------------------------------------------"<<endl;
-    
     cout<<"Si tiene su perfil creado presione Y o N para crear su perfil: ";
     cin>>entrada;
-    switch (entrada) {
-        case 'y':
-        case 'Y':
-            cout<<"\nInicio de sesion: "<<endl;
-          
-            cout<<"Contrasena: "<<endl;
+   
+        if(entrada == 'y' || entrada == 'Y')
+        {
+            cout<<"\nNombre de usuarios o Correo: "<<endl;
+            cin>>inicio;
+            cout<<"\nContrasena "<<endl;
+            cin>>inicio_contra;
+            for(auto usuario:usuarios){
+                if(usuario == inicio){
+                    for(auto usuario:usuarios){
+                        if(usuario == inicio_contra){
+                            cout<<"\nsesion iniciada"<<endl; 
+                            cin>>num;
+                        }
+                    }
+
+                }
+            }
+           cout<<"EQUIVOCADO"<<endl; 
+           cin>>num;
+
+                
+        
            
-            break;
-        case 'n':
-        case 'N':
+        }
+        else if(entrada == 'n' || entrada == 'N')
+        {
+            do{
+            system("cls");
+            cout<<"Ingrese los datos para crear perfil estudiantil"<<endl;
             cout<<"\nNombre: ";
             cin>>nombre;
             
@@ -40,6 +74,10 @@ int main(){
             strcat(nombre_completo," ");
             strcat(nombre_completo,apellido);
             usuarios.push_back(nombre_completo);
+            
+            cout<<"\nNombre de Usuario: ";
+            cin>>nombre_usuario;
+            usuarios.push_back(nombre_usuario);
             
             cout<<"\nIdentificacion: ";
             cin>>identificacion;
@@ -53,13 +91,31 @@ int main(){
             cin>>carrera;
             usuarios.push_back(carrera);
             
-            break;
-    
-  
-    
-    
-    
+            srand(time(0));
+            for (int i = 0;i<passLenght;i++)
+                {
+                   pass += getRandomChar();
+                }
+            usuarios.push_back(pass);
+                
+            system("cls");
+            cout<<"Ha creado su perfil de usuario"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            cout <<"\nNombre de Usuario: "<<usuarios.at(1) << endl;
+            cout <<"\nCorreo: "<<usuarios.at(3) << endl;
+            cout<<"\nContrasena: "<<usuarios.at(5) << endl;
+            cout<<"\n\nNOTA ESTA ES UNA CONTRASENA PROVISIONAL HASTA QUE INGRESE POR PRIMERA VEZ AL SISTEMA"<<endl;
+            cout<<"\nSi todos sus datos son correctos presiono la letra x o sino la letra z para volver a introducirlos: ";
+            cin>>salida;
+            }while ( salida == 'z' || salida == 'Z');
+
+
+            
+        }
+    volver='x';
+    }while(volver == 'x'); 
+           
     return 0;
-}
+
 
 }
