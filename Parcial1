@@ -1,12 +1,18 @@
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <fstream>
+#include <string.h>
 #include <time.h>
+#include <ctime>
 #include <vector>
-#include <cstring>
 
 using namespace std;
-/*Parcial #1 */
+
+    void login();
+    void registration();
+    void olvido();
+    void cambio();
+    void ticket();
+    void sistem();
 
     static const char pool [] = 
     "ABCDFGHIJKLMNOPQRSTUVWXYZ"
@@ -20,102 +26,421 @@ using namespace std;
     {
         return pool[rand()%poolsize];
     }
-int main(){
-    char salida{},volver{},entrada{};
-    vector <string> usuarios(0);
-    char nombre[20]{},apellido[20]{},nombre_usuario[20]{},identificacion[20]{},correo[20]{},carrera[20]{},nombre_completo[50]{};
-    string pass,inicio,inicio_contra;
-    int const passLenght=6;
-    int num;
+
+    int main()
+    {
+    int c;
+
+    cout<<"\n\t\t\t\t\t----------Bienvenido a la Universidad xyz------------"<<endl<<endl;
+    cout<<"\t\t\t\t\t---------------MENU-------------------";
+    cout<<"\n\n\t\t\t\t\t Presionar 1 para ingresar                       |"<<endl;
+    cout<<"\n\n\t\t\t\t\t Presionar 2 para registrarse                    |"<<endl;
+    cout<<"\n\n\t\t\t\t\t Presionar 3 para si olvido la contrasena        |"<<endl;
+    cout<<"\n\n\t\t\t\t\t Presionar 4 para finalizar                       |"<<endl;
+    cout<<"\n\n\t\t\t\t\t Selecionne su opcion: ";
+    cin>>c;
+    cout<<endl;
+
+    switch(c)
+    {
+        case 1:
+        login();
+        break;
+
+        case 2:
+        registration();
+        break;
+        case 3:
+        olvido();
+        break;
+        case 4:
+        cout<<"-----Hasta luego------";
+        break;
+        default:
+        system("cls");
+        cout<<"\n Por favor seleccionar una de las opciones dadas\n"<<endl;
+        main();
+    }
+
+
+    }
+
+    void login()
+
+    {
+    int count;
+    time_t now = time(0);
+    tm * time = localtime(&now);
+
+    vector<string> dia_semana;
+    dia_semana.push_back("Domingo");
+    dia_semana.push_back("Lunes");
+    dia_semana.push_back("Martes");
+    dia_semana.push_back("Miercoles");
+    dia_semana.push_back("Jueves");
+    dia_semana.push_back("Viernes");
+    dia_semana.push_back("Sabado");
     
-    do{
-    system("cls");    
-    cout<<"Bienvenidos al portal de la Universidad XYZ"<<endl;
-    cout<<"-------------------------------------------"<<endl;
-    cout<<"Si tiene su perfil creado presione Y o N para crear su perfil: ";
-    cin>>entrada;
-   
-        if(entrada == 'y' || entrada == 'Y')
-        {
-            cout<<"\nNombre de usuarios o Correo: "<<endl;
-            cin>>inicio;
-            cout<<"\nContrasena "<<endl;
-            cin>>inicio_contra;
-            for(auto usuario:usuarios){
-                if(usuario == inicio){
-                    for(auto usuario:usuarios){
-                        if(usuario == inicio_contra){
-                            cout<<"\nsesion iniciada"<<endl; 
-                            cin>>num;
-                        }
-                    }
+    vector<string> mes;
+    mes.push_back("Enero");
+    mes.push_back("Febrero");
+    mes.push_back("Marzo");
+    mes.push_back("Abril");
+    mes.push_back("Mayo");
+    mes.push_back("Junio");
+    mes.push_back("Julio");
+    mes.push_back("Agosto");
+    mes.push_back("Septiembre");
+    mes.push_back("Octubre");
+    mes.push_back("Noviembre");
+    mes.push_back("Diciembre");
+    
+    string userId, password, id, pass;
+    
+    int year = 1900 + time->tm_year,option;
+    
+    char actualizacion;
+    
+    
+    system("cls");
+    cout<<"\n Por favor ingrese su usario y contrasena: "<<endl;
+    cout<<"\t\t USUARIO ";
+    cin>>userId;
+    cout<<"\t\t CONTRASENA ";
+    cin>>password;
+
+    ifstream input("records.txt");
+
+        while(input>>id>>pass)
+            {
+            if(id==userId && pass==password)
+                {
+                count=1;
+                system("cls");
 
                 }
             }
-           cout<<"EQUIVOCADO"<<endl; 
-           cin>>num;
-
-                
+        input.close();
+        if(count == 1)
+            {
+        cout<<userId<<"\nHa ingresado al sistema\n";
+        cout<<"-----------------------------------"<<endl;
         
-           
-        }
-        else if(entrada == 'n' || entrada == 'N')
+        cout << "Hoy " << dia_semana[time->tm_wday] << ", ";
+        cout << time->tm_mday << " de " << mes[time->tm_mon] << " del " << year << endl;
+        cout << time->tm_hour << ":" << time->tm_min << ":" << time->tm_sec << endl;
+        
+        cout<<"Si desea actulizar su contrasena presione x sino presione cualquiera letra para continuar ";
+        cin>>actualizacion;
+        
+            if(actualizacion =='x')
+            {
+                cambio();
+            }
+            else{
+ 
+        cout<<"\nPresione 1 ingresar ticket"<<endl;
+        cout<<"Presione 2 ver estatus de ticket"<<endl;
+        cout<<"Presione 3 para cerrar sesion"<<endl;
+        cout<<"\t\t\t Entre su opcion: ";
+        cin>>option;
+        
+        switch(option)
         {
-            do{
-            system("cls");
-            cout<<"Ingrese los datos para crear perfil estudiantil"<<endl;
-            cout<<"\nNombre: ";
-            cin>>nombre;
+            case 1:
+            {
+            ticket();
+            break;
+            }
+            case 2:
+            {
+            sistem();
+            break;
+            }
+            case 3:
+            {
+                cout<<"\nHA CERRADO SESION"<<endl;
+                cout << "Hoy " << dia_semana[time->tm_wday] << ", ";
+                cout << time->tm_mday << " de " << mes[time->tm_mon] << " del " << year << endl;
+                cout << time->tm_hour << ":" << time->tm_min << ":" << time->tm_sec << endl;
+            main();
+            break;
+            }
+            default:
             
-            cout<<"\nApellido: ";
-            cin>>apellido;
-            
-            strcpy(nombre_completo,nombre);
-            strcat(nombre_completo," ");
-            strcat(nombre_completo,apellido);
-            usuarios.push_back(nombre_completo);
-            
-            cout<<"\nNombre de Usuario: ";
-            cin>>nombre_usuario;
-            usuarios.push_back(nombre_usuario);
-            
-            cout<<"\nIdentificacion: ";
-            cin>>identificacion;
-            usuarios.push_back(identificacion);
-            
-            cout<<"\nCorreo: ";
-            cin>>correo;
-            usuarios.push_back(correo);
-            
-            cout<<"\nCarrera que estudia: ";
-            cin>>carrera;
-            usuarios.push_back(carrera);
-            
-            srand(time(0));
-            for (int i = 0;i<passLenght;i++)
-                {
-                   pass += getRandomChar();
-                }
-            usuarios.push_back(pass);
-                
-            system("cls");
-            cout<<"Ha creado su perfil de usuario"<<endl;
-            cout<<"-------------------------------------------"<<endl;
-            cout <<"\nNombre de Usuario: "<<usuarios.at(1) << endl;
-            cout <<"\nCorreo: "<<usuarios.at(3) << endl;
-            cout<<"\nContrasena: "<<usuarios.at(5) << endl;
-            cout<<"\n\nNOTA ESTA ES UNA CONTRASENA PROVISIONAL HASTA QUE INGRESE POR PRIMERA VEZ AL SISTEMA"<<endl;
-            cout<<"\nSi todos sus datos son correctos presiono la letra x o sino la letra z para volver a introducirlos: ";
-            cin>>salida;
-            }while ( salida == 'z' || salida == 'Z');
-
-
-            
+                cout<<"\t\t\t Mala eleccion. se ha cerrado sesion"<<endl;
+                cout<<"\nHA CERRADO SESION"<<endl;
+                cout << "Hoy " << dia_semana[time->tm_wday] << ", ";
+                cout << time->tm_mday << " de " << mes[time->tm_mon] << " del " << year << endl;
+                cout << time->tm_hour << ":" << time->tm_min << ":" << time->tm_sec << endl;
+                main();
         }
-    volver='x';
-    }while(volver == 'x'); 
-           
-    return 0;
 
+  
+            }
+            }
+        else{
+        cout<<"\n Tiene un ERROR. Por favor chequear el user y la contraseña";
+        main();
+            }
+    }
+    
+        void registration()
+        {
+        string ruserId, rpassword,rid,rpass;
+        const int passLenght = 6;
+        system("cls");
+        cout<<"\t\t\t Ingrese su usuario: ";
+        cin>>ruserId;
+        cout<<"\t\t\t Se le dara su contrasena Provisional";
+        srand(time(0));
+        for (int i = 0;i<passLenght;i++)
+            {
+               rpassword += getRandomChar();
+            }
+        cout<<rpassword;
 
-}
+        ofstream f1("records.txt", ios::app);
+        f1<<ruserId<<' '<<rpassword<<endl;
+        system("cls");
+        cout<<"\n\t\t\t Registro Completado "<<endl;
+        cout<<"\t\t\t Su usuario es: "<<ruserId<<endl;
+        cout<<"\t\t\t Su contrasena PROVISIONAL: "<<rpassword<<endl;
+        main();
+
+        }
+
+        void olvido()
+        {
+        int option;
+        system("cls");
+        cout<<"\t\t\t ¿Ha olvidado su contrasena? \n";
+        cout<<"Presione 1 para buscarlo por su Usuario"<<endl;
+        cout<<"Presione 2 regresar al menu Princial"<<endl;
+        cout<<"\t\t\t Entre su opcion: ";
+        cin>>option;
+        
+        switch(option)
+        {
+            case 1:
+            {
+            int count=0;
+            string suserId,sId,spass;
+            cout<<"\n\t\t Ingrese su usuario que recuerda: ";
+            cin>>suserId;
+    
+            ifstream f2("records.txt");
+            while(f2>>sId>>spass)
+            {
+                if(sId==suserId)
+                {
+                count=1;
+                }
+            }
+            f2.close();
+            if(count==1)
+                {
+                cout<<"\n\n Su cuentala encontramos! \n";
+                cout<<"\n\n Tu contrasena es: "<<spass;
+                main();
+                }
+            else{
+            cout<<"\n\t Lo siento su cuenta no la encontramos\n";
+            main();
+            }
+            break;
+                }
+        
+            case 2:
+                {
+                    main();
+                }
+            default:
+            
+                cout<<"\t\t\t Mala eleccion. Escoger otra"<<endl;
+                olvido();
+                
+            
+
+        
+        }
+
+        }
+    void cambio()
+    {
+        int count=0;
+        system("cls");
+        string cuserId,cpass,cId,cuserpass,cnew;
+        cout<<"\n\t\t Ingrese su usuario: ";
+        cin>> cuserId;
+        cout<<"\n\t\t Ingrese su contrasena anterior: ";
+        cin>> cuserpass;
+
+     
+        
+        ifstream f2("records.txt");
+        while(f2>>cId>>cpass)
+            {
+                if(cId==cuserId && cpass==cuserpass)
+                {
+                    count =1;
+                    cout<<"\n\t\t Ingrese su nueva contrasena: ";
+                    cin>> cnew;
+                    cpass = cnew;
+                    ofstream f1("records.txt", ios::app);
+                    f1<<cId<<' '<<cpass<<endl;
+                }
+    
+            }
+        f2.close();
+        if(count==1)
+            {
+ 
+            cout<<"\n\t\t HA CAMBIADO SU CONTRASENA A: "<<cpass;
+            main();
+            }
+                       else{
+            cout<<"\n\t\t lo sentimos no concuerda contrasena";
+            main();
+            }
+    }
+
+void ticket()
+    {
+        
+        string nombre,apellido,cedula,correo,carrera,ticket,problema;
+        int option;
+        const int passLenght =6;
+        system("cls");
+        cout<<"\t\t\t\n INGRESO DE TICKET";
+        cout<<"\t\t\t\n -----------------";
+        cout<<"\t\t\t\n Ingrese su nombre: ";
+        cin>>nombre;
+        cout<<"\t\t\t\n Ingrese su apellido: ";
+        cin>>apellido;
+        cout<<"\t\t\t\n Ingrese su cedula: ";
+        cin>>cedula;
+        cout<<"\t\t\t\n Ingrese su correo: ";
+        cin>>correo;
+        cout<<"\t\t\t\n Ingrese su carrera: ";
+        cin>>carrera;
+        cout<<"\t\t\t\n Descripcion del ticket: ";
+        cin>>problema;
+        cout<<"Su TICKET se ha enviado exitosamente";
+        srand(time(0));
+        for (int i = 0;i<passLenght;i++)
+            {
+               ticket += getRandomChar();
+            }
+    
+
+        
+        ofstream f1("ticket.txt", ios::app);
+        f1<<ticket<<' '<<problema<<' '<<nombre<<' '<<apellido<<' '<<cedula<<' '<<correo<<' '<<carrera<<endl;
+        
+        cout<<"\n\t\t\t ------------------ ";
+        cout<<"\n\t\t\t TICKET COMPLETADO "<<endl;
+        cout<<"\t\t\t Su numero de ticket es: "<<ticket<<endl;
+        cout<<"\t\t\t con descripcion: "<<problema<<endl;
+        
+        cout<<"\nPresione 1 para ingresar otro ticket"<<endl;
+        cout<<"Presione 2 regresar al menu Princial"<<endl;
+        cin>>option;
+        
+        switch(option){
+            case 1:
+            {
+                login();
+                break;
+            }
+            case 2:
+            {
+                main();
+                break;
+            }
+            default:
+            
+            cout<<"\t\t\t Mala eleccion. se ha cerrado sesion"<<endl;
+            main();
+        }
+        
+        
+        
+    }
+void sistem()
+    {
+        int count=0, option;
+        string sticket,nticket,snombre,sapellido,scedula,scorreo,scarrera,sproblema;
+        system("cls");
+        cout<<"\n\t\t Ingrese numero de caso de ticket: ";
+        cin>> nticket;
+        
+        ifstream input("ticket.txt");
+        while(input>>sticket>>sproblema>>snombre>>sapellido>>scedula>>scorreo>>scarrera)
+            {
+                if(sticket == nticket )
+                {
+                    count =1;
+                }
+            }
+            input.close();
+            if(count==1)
+            {
+            cout<<"\nEl reporte del ticket "<<sticket<<" con descripcion " <<sproblema<<" del estudiante "<<snombre<<' '<<sapellido;
+            cout<<"\n DATOS: "<<endl;
+            cout<<scedula<<endl;
+            cout<<scorreo<<endl;
+            cout<<scarrera<<endl;
+            cout<<"\n------------------------------------";
+            cout<<"\nPresione 1 para ingresar otro ticket"<<endl;
+            cout<<"Presione 2 regresar al menu Princial"<<endl;
+            cin>>option;
+        
+        switch(option){
+            case 1:
+            {
+                login();
+                break;
+            }
+            case 2:
+            {
+                main();
+                break;
+            }
+            default:
+            
+            cout<<"\t\t\t Mala eleccion. se ha cerrado sesion"<<endl;
+            main();
+        }
+                
+            }
+            else{
+            cout<<"\nNumero de ticket equivocado";
+            cout<<"\n------------------------------------";
+            cout<<"\nPresione 1 para ingresar otro ticket"<<endl;
+            cout<<"Presione 2 regresar al menu Princial"<<endl;
+            cin>>option;
+        
+        switch(option){
+            case 1:
+            {
+                login();
+                break;
+            }
+            case 2:
+            {
+                main();
+                break;
+            }
+            default:
+            
+            cout<<"\t\t\t Mala eleccion. se ha cerrado sesion"<<endl;
+            main();
+            
+                login();
+                
+                
+            }
+    }
+    }
+        
