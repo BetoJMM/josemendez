@@ -1,0 +1,30 @@
+include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+int funcion(int valor){
+    valor = valor + 10;
+    return valor;
+}
+
+int funcionPuntero(int* valor){
+    *valor = *valor + 10;
+    return *valor;
+}
+
+int main(){
+    
+    int numero2 = 10;
+    
+    cout<<"Antes de la funcion el valor es: "<<numero2<<endl;
+    
+    funcion(numero2);
+    
+    cout<<"Despues de la funcion el valor es:"<<numero2<<endl;
+    
+    funcionPuntero(&numero2);
+    cout<<"Despues de la funcion puntero el valor es:"<<numero2<<endl;
+    
+    return 0;
+}
